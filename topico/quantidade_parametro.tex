@@ -1,0 +1,227 @@
+\begin{frame}
+	\frametitle{Quantidade de parâmetros}
+
+	\begin{figure}[h]
+		\centering
+			\includegraphics[height=0.6\paperheight]{figuras/gabriel}
+		\caption{Retirada do site \href{https://www.pensador.com/frase/MjE5MzQ4/}{Pensador}}\label{figure:gabriel}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problemas}
+
+	\begin{itemize}
+		\item Necessidade de criar objetos
+		\item Não saber o que é realmente necessário
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\Huge Caso real
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\caption{Trabalho para reserva de poltrona em avião}
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+int mod2(int rg,int p, int f, int np, int nf, int opt){
+	FILE *arq;
+	FILE *arq2;
+	int i=0,j=0,tam;
+	char ch;
+	struct cli{
+		int rg;
+		char nome[30];
+		int p,f,d,m,a;
+	};
+	struct cli cad;
+	arq=fopen("cli.dat","rb");
+	if(arq==NULL){
+		return 100;
+	}
+	[...]
+
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}
+	\Huge Exemplo
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+class Produto{
+	private:
+		int id;
+		string nome;
+		string descricao;
+		float preco;
+
+	public:
+		Produto(int id, string nome, string descricao, float preco);
+		Produto(string nome, string descricao, float preco);
+};
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+class ProdutoDAO : protected ConexaoBancoDeDados{
+	public:
+		bool cadastrar(string nome, string descricao, float valor);
+};
+		\end{minted}
+	\end{listing}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+produtoDAO.cadastrar(  "Livro - Clean Code" , "100 paginas", 50  );
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+class ProdutoDAO : protected ConexaoBancoDeDados{
+	public:
+		bool cadastrar(Produto produto);
+};
+		\end{minted}
+	\end{listing}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+Produto produto( "Livro - Clean Code" , "100 paginas", 50 );
+produtoDAO.cadastrar( produto );
+		\end{minted}
+	\end{listing}
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+class ProdutoDAO : protected ConexaoBancoDeDados{
+	public:
+		bool cadastrar(Produto produto);
+		Produto pegarInformacoes(Produto produto);
+};
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+	{\Huge Quero pegar as informações do produto, mas quais dados devo fornecer?}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+Produto produto = produtoDAO.pegarInformacoes( ? );
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Suposição dos campos necessários}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+int idProduto = 10;
+string nomeProduto = "Clean Code";
+produtoAPesquisar( idProduto, nomeProduto, "", 0 );
+produto = produtoDAO.pegarInformacoes( produtoAPesquisar );
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Solução}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+class ProdutoDAO : protected ConexaoBancoDeDados{
+	public:
+		bool cadastrar(Produto produto);
+		Produto pegarInformacoes(int id);
+};
+		\end{minted}
+	\end{listing}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+Produto produto = produtoDAO.pegarInformacoes( idProduto );
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}
+	\Huge Exemplo
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+typedef struct {
+	int x,y;
+} Ponto;
+
+void desenhar_triangulo(Ponto ponto1, Ponto ponto2, Ponto ponto3, char *corLinha,
+	 					char *corPreenchimento){
+	[...]
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Solução}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+typedef struct {
+    int x,y;
+} Ponto;
+
+typedef struct {
+    char corPreenchimento[100];
+    char corLinha[100];
+    Ponto vertices[3];
+} Triangulo;
+
+void desenhar(Triangulo triangulo){
+    [...]
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Solução}
+
+	\begin{itemize}
+		\item Reavaliar para encontrar o que se encaixa melhor
+	\end{itemize}
+
+\end{frame}

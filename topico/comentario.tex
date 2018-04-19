@@ -1,0 +1,191 @@
+\begin{frame}
+	\frametitle{Comentários}
+
+	\begin{figure}[h]
+		\centering
+			\includegraphics[height=0.6\paperheight]{figuras/johann}
+		\caption{Retirada do site \href{https://www.pensador.com/frase/MzI2/}{Pensador}}\label{figure:johann}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problemas}
+
+	\begin{itemize}
+		\item Comentários tendem a mentir
+		\item Você não sabe pra que serve um código comentado
+		\item Comentários tentam explicar o que não está claro em seu código
+		\item * Comentários podem ser lixos no código
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\Huge Exemplo
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{O que essa função deve fazer?}
+
+	\begin{listing}[H]
+		\caption{Comentário para explicar o que a função faz}
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+/*
+	Função para contar o tamanho da string
+	char *string String a ter seu tamanho contado
+	Retorno tamanho da string
+*/
+int contarTamanho(char *string);
+		\end{minted}
+
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{O que a função faz de fato?}
+
+	\begin{listing}[H]
+		\caption{Comentário para explicar o que a função faz}
+		\begin{minted}[baselinestretch=1.0,fontsize=\scriptsize,linenos]{c}
+/*
+	Funcao para contar o tamanho da string
+	char *string String a ter seu tamanho contado
+	Retorno tamanho da string
+*/
+int contarTamanho(char *string){
+	int tamanho=0;
+	int i=0;
+
+	while(string[i]!='\0' && i < strlen(string)){
+		if(string[i]==' '){
+			string[i]='\0';
+		}
+		tamanho++;
+		i++;
+	}
+
+	return tamanho;
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}
+	\Huge Caso real
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\caption{Comentários em excesso}
+		\begin{minted}[baselinestretch=1.0,fontsize=\scriptsize,linenos]{java}
+/**
+* Metodo construtor de Ocorrencia.
+*
+* @param dataHora Data e hora da ocorrência.
+* @param transitavelVeiculo Transitável por meio de Veiculo.
+* @param transitavelAPe Transitável a pé.
+* @param descricao Descrição da ocorrência.
+* @param qtdExistente Quantidade de existente.
+* @param qtdInexistente Quantidade de inexistente.
+* @param qtdCasoEncerrado Quantidade de caso encerrado.
+* @param pkOcorrencia Número de identificação da ocorrência
+* @param tipo Tipo da ocorrência.
+* @param user Objeto Usuário.
+*/
+public Ocorrencia(Date dataHora, boolean transitavelVeiculo, boolean transitavelAPe,
+			String descricao, long qtdExistente, long qtdInexistente,
+			long qtdCasoEncerrado, long pkOcorrencia, Tipo tipo, Usuario user) {
+	this.dataHora = (Date) dataHora.clone();
+ 	 //...
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}
+	\Huge Exemplo
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\caption{Comentário para explicar cada trecho de código}
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+/*
+	Função para calcular a área de um retângulo
+	float b um lado do retângulo
+	float c outro lado do retângulo
+	Retorno área do retângulo
+*/
+float calc (float b, float c){
+	float a = b * c; // a recebe b * c
+	return a; // retorna a
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}
+	\Huge Exemplo
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{O que fazer com código comentado?}
+
+	\begin{listing}[H]
+		\caption{Código comentado}
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{verilog}
+module inicial ( giro, entrada, saida, metais, ledVerde, ledVermelho, display, clock );
+	input giro, entrada, saida, metais, clock;
+	output [1:0] ledVerde, ledVermelho;
+	output [6:0] display;
+
+	reg [3:0] tmp;
+	[...]
+	tmp = { giro, entrada, saida, metais };
+	/*
+		tmp[3] = giro;
+		tmp[2] = entrada;
+		tmp[1] = saida;
+		tmp[0] = metais;
+	*/
+
+	[...]
+endmodule
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\caption{Código comentado}
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{verilog}
+module inicial ( giro, entrada, saida, metais, ledVerde, ledVermelho, display, clock );
+	input giro, entrada, saida, metais, clock;
+	output [1:0] ledVerde, ledVermelho;
+	output [6:0] display;
+
+	reg [3:0] tmp;
+	[...]
+	tmp = { giro, entrada, saida, metais };// Equivalente ao código comentado
+	/*
+		tmp[3] = giro;
+		tmp[2] = entrada;
+		tmp[1] = saida;
+		tmp[0] = metais;
+	*/
+
+	[...]
+endmodule
+		\end{minted}
+	\end{listing}
+
+\end{frame}

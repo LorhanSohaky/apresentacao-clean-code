@@ -1,0 +1,57 @@
+\begin{frame}[fragile]
+	\frametitle{Biblioteca \textit{Sohaky.h}}
+
+	\begin{itemize}
+		\item Duas funções
+		\item 172 linhas
+	\end{itemize}
+
+	\begin{listing}[H]
+		\caption{Funções para realizar operações matemáticas}
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+
+		void melhora(double t, char r[100]);
+
+		double resolve(char *n);
+		\end{minted}
+	\end{listing}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Função \textit{melhora}}
+
+	\begin{minted}[baselinestretch=1.0,fontsize=\scriptsize,linenos]{c}
+void melhora(double t, char r[100]){
+	sprintf(r,"%f",t);
+	int x, tamanho=0,i,j;
+  	tamanho=strlen(r);
+  	for (x=0; x<tamanho; x++){
+		if (r[x]== ',' || r[x]=='.'){
+			r[x]='.';
+			for(i=x;i<tamanho;i++){
+				if(r[i]=='.'){
+					j=x;
+				}else if(r[i]!='0'){
+					j=i+1;
+				}
+	 		}
+	  	}
+  	}
+  	r[j]='\0';
+}
+	\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Função \textit{resolve}}
+
+	\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+double resolve(char *n){
+	char op='\0',a[100]={'\0'},b[100]={'\0'},op2='\0',xc[100]={'\0'},dpa[100]={'\0'};
+	int j,po=0,tam,l,v=0,po2=0,v2=0,co=0,k,cof=0,coa=0,poa=0,pof=0,dp=0,t=0;
+	double ai=0,bi=0,ri=0;
+	tam=strlen(n);
+	//...
+}
+	\end{minted}
+\end{frame}

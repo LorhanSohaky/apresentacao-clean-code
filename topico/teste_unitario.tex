@@ -1,0 +1,51 @@
+\begin{frame}
+	\frametitle{Não possuir testes}
+
+	\begin{figure}[h]
+		\centering
+			\includegraphics[height=0.6\paperheight]{figuras/albert}
+		\caption{Retirada do site \href{https://www.pensador.com/frase/NjY1NDYw/}{Pensador}}\label{figure:albert}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problemas}
+
+	\begin{itemize}
+		\item Necessidade de testar manualmente
+		\item Durante as atualizações pode aparecer um problema e não ser identificado de imediato
+	\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+bool testSubstituirVogaisPorEspaco(void){
+    char *string ="abcdef";
+    char *resultadoEsperado = " bcd f";
+
+    substituirVogaisPorEspaco(string); // retorna string = "AbcdEf"
+
+    if( !strcmp( resultadoEsperado, string) ){
+        printf("Erro no teste da função substituirVogaisPorEspaco\n");
+        return false;
+    }
+    return true;
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Solução}
+
+	\begin{itemize}
+		\item Criar testes
+	\end{itemize}
+
+\end{frame}

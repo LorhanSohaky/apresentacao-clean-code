@@ -1,0 +1,157 @@
+\begin{frame}
+	\frametitle{Falta de padronização}
+
+	\begin{figure}[h]
+		\centering
+			\includegraphics[height=0.6\paperheight]{figuras/pitagoras}
+		\caption{Retirada do site \href{https://www.pensador.com/frase/Mzg3/}{Pensador}}\label{figure:pitagoras}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problemas}
+
+	\begin{itemize}
+		\item Necessidade de olhar a implementação
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\Huge Exemplo
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+	bool trocarVogaisPorEspaco(char *string);
+
+	bool substituirNumerosPorLetras(char *string);
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+bool trocarVogaisPorEspaco(char *string){
+	char vogais[]="aeiouAEIOU";
+
+	bool substituiu, tmp;
+
+	for( int i=0; i<strlen(vogais); i++){
+		tmp = substituirCaractere(string, vogais[i], ' ');
+
+		if(tmp){
+			substituiu = tmp;
+		}
+	}
+
+	return substituiu;
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+bool substituirNumerosPorLetras(char *string){
+	char numeros[]="0123456789";
+
+	bool substituiu, tmp;
+
+	for( int i=0; i<strlen(numeros); i++){
+		tmp = substituirCaractere(string, numeros[i], 'A');
+
+		if(tmp){
+			substituiu = tmp;
+		}
+	}
+
+	return substituiu;
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+class Usuario{
+	private:
+		int id;
+	public:
+		int getId() const{
+			return id;
+		}
+};
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+class Cliente{
+	private:
+		ID id;
+	public:
+		ID getId() const{
+			return id;
+		}
+};
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Problema}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+int idCliente = cliente.getId();
+int idUsuario = usuario.getId().getValue();
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Solução}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c++}
+class Cliente{
+	private:
+		ID id;
+	public:
+		int getId() const{
+			return id.getValue();
+		}
+};
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Solução}
+
+	\begin{itemize}
+		\item Padronizar
+	\end{itemize}
+
+\end{frame}

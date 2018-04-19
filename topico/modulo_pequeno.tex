@@ -1,0 +1,207 @@
+\begin{frame}
+	\frametitle{Módulos grandes (não especializados)}
+
+	\begin{figure}[h]
+		\centering
+			\includegraphics[height=0.6\paperheight]{figuras/george}
+		\caption{Retirada do site \href{https://www.pensador.com/frase/OTMw/}{Pensador}}\label{figure:george}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problemas}
+
+	\begin{itemize}
+		\item Fazer diversas coisas (resolver diversos problemas)
+		\item Alto grau de complexidade
+		\item Baixa reutilização
+		\item Alto custo de manutenção
+		\item Podem não ser tão eficientes
+		\item Podem esconder problemas
+		\item Modificar um trecho que não deveria
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\Huge Caso real
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Onde está o problema?}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+[...]
+FILE *pArquivo;
+int nLinhas = 0;
+char caracter;
+char palavra[100];
+
+if((pArquivo=fopen("meuArquivo.txt", "r")) != NULL){
+	while(fscanf(pArquivo, "%c", &caracter) != EOF){
+		if(caracter == '\n'){
+		  nLinhas+=1;
+		}
+	}
+	for(i=0; i<rand()%nLinhas+1; i++){
+		fscanf(pArquivo, "%s\n", &palavra);
+	}
+fclose(pArquivo);
+[...]
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Onde está o problema?}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.0,fontsize=\scriptsize,linenos]{c}
+[...]
+FILE *pArquivo;
+int nLinhas = 0;
+char caracter;
+char palavra[100];
+
+if((pArquivo=fopen("meuArquivo.txt", "r")) != NULL){
+	while(fscanf(pArquivo, "%c", &caracter) != EOF){
+		if(caracter == '\n'){
+		  nLinhas+=1;
+		}
+	}
+	//Aqui está o problema, pois o ponteiro pArquivo não está mais na posição inicial
+	for(i=0; i<rand()%nLinhas+1; i++){
+		fscanf(pArquivo, "%s\n", &palavra);
+	}
+fclose(pArquivo);
+[...]
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Solução porca}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.0,fontsize=\scriptsize,linenos]{c}
+[...]
+FILE *pArquivo;
+int nLinhas = 0;
+char caracter;
+char palavra[100];
+
+if((pArquivo=fopen("meuArquivo.txt", "r")) != NULL){
+	while(fscanf(pArquivo, "%c", &caracter) != EOF){
+		if(caracter == '\n'){
+			nLinhas+=1;
+		}
+	}
+
+	rewind(pArquivo);
+	for(i=0; i<rand()%nLinhas+1; i++){
+		fscanf(pArquivo, "%s\n", &palavra);
+	}
+fclose(pArquivo);
+[...]
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Solução ideal}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.0,fontsize=\scriptsize,linenos]{c}
+void lerLinhaSorteada(char *nomeDoArquivo){
+	int quantidadeDeLinhas = contarNumeroDeLinhas(nomeDoArquivo);
+
+	if(quantidadeDeLinhas == -1)
+		return;
+
+	int linha = sortear(quantidadeDeLinhas);
+
+	FILE *arquivo = fopen(nomeDoArquivo, "r");
+
+	moverPonteiroArquivo(&arquivo, linha);
+
+	char palavra[100];
+	fscanf(arquivo,"%s\n",palavra);
+	fclose(arquivo);
+
+	printf("%s\n",palavra);
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Solução ideal}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.0,fontsize=\scriptsize,linenos]{c}
+int contarNumeroDeLinhas(char *nomeDoArquivo){
+    int quantidadeDeLinhas = 0;
+    char caracter;
+    FILE *arquivo = fopen(nomeDoArquivo, "r");
+
+    if(arquivo ==NULL){
+        quantidadeDeLinhas = -1;
+    }else{
+        while(fscanf(arquivo, "%c", &caracter) != EOF){
+            if(caracter == '\n'){
+                quantidadeDeLinhas++;
+            }
+        }
+
+        fclose(arquivo);
+    }
+
+    return quantidadeDeLinhas;
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Solução ideal}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+int sortear(int limite){
+	return rand()%limite+1;
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Solução ideal}
+
+	\begin{listing}[H]
+		\begin{minted}[baselinestretch=1.2,fontsize=\scriptsize,linenos]{c}
+void moverPonteiroArquivo(FILE **arquivo, int linha){
+    char palavra[100];
+
+    for(int i=0; i<linha-1; i++){
+        fscanf(*arquivo, "%s\n",&palavra);
+    }
+}
+		\end{minted}
+	\end{listing}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Solução}
+
+	\begin{itemize}
+		\item Criar funções especializadas
+	\end{itemize}
+\end{frame}

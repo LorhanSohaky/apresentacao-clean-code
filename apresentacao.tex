@@ -1,0 +1,101 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}    % codificacao de fontes
+\usepackage[brazil]{babel}  % idioma
+\usepackage{lmodern}
+\usepackage{graphics}
+\usepackage{hyperref}
+\usepackage{wrapfig}	% Imagem ao lado do texto
+\usepackage{float}
+\usepackage{color}
+\usepackage{caption}
+\usepackage[newfloat]{minted}
+\captionsetup[listing]{position=top}
+
+\renewcommand{\listingname}{Código}
+
+
+\usemintedstyle{fruity}
+
+
+\usetheme{default}
+
+% ---- Inicio Configuração das cores ---- %
+
+\setbeamercolor{normal text}{fg=white,bg=black!90}
+\setbeamercolor{structure}{fg=white}
+
+\setbeamercolor{alerted text}{fg=red!85!black}
+
+\setbeamercolor{item projected}{use=item,fg=black,bg=item.fg!35}
+
+\setbeamercolor*{palette primary}{use=structure,fg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure,fg=structure.fg!95!black}
+\setbeamercolor*{palette tertiary}{use=structure,fg=structure.fg!90!black}
+\setbeamercolor*{palette quaternary}{use=structure,fg=structure.fg!95!black,bg=black!80}
+
+\setbeamercolor*{framesubtitle}{fg=white}
+
+\setbeamercolor*{block title}{parent=structure,bg=black!60}
+\setbeamercolor*{block body}{fg=black,bg=black!10}
+\setbeamercolor*{block title alerted}{parent=alerted text,bg=black!15}
+\setbeamercolor*{block title example}{parent=example text,bg=black!15}
+
+% ---- Fim Configuração das cores ---- %
+
+\usefonttheme[onlymath]{serif} % fonte modo matematico
+
+\title{Código Limpo}
+\subtitle{\textit{Clean Code}}
+\author{Lorhan Sohaky}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\input{topico/me}
+
+\input{topico/meu_projeto}
+
+\input{topico/nao_sei}
+
+\input{topico/importancia}
+
+\input{topico/nome_descritivo}
+
+\input{topico/modulo_pequeno}
+
+\input{topico/comentario}
+
+\input{topico/codigo_repetido}
+
+\input{topico/quantidade_parametro}
+
+\input{topico/padronizacao}
+
+\input{topico/teste_unitario}
+
+\input{topico/separacao}
+
+\input{topico/palavras-chaves}
+
+\begin{frame}
+	\begin{thebibliography}{10}
+		\beamertemplatebookbibitems
+		\bibitem{Autor1990}
+		Steve McConnell.
+		\newblock {\em Code Complete}.
+		\newblock Vol. 2, 2004.
+		\beamertemplatearticlebibitems
+
+		\bibitem{Autor1990}
+		Robert C Martin.
+		\newblock Clean Code.
+		\newblock Vol. 1, 2008.
+	\end{thebibliography}
+\end{frame}
+
+\end{document}
